@@ -2,10 +2,10 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const userModel = require("../users/usersModel.js");
-const secrets = require("../database/secrets.js");
+const usersModel = require("../users/usersModel.js");
+const secrets = require("../database/secret.js");
 
-router.post("/register", (req, res) => {
+router.post("/register", checkUser, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
@@ -20,7 +20,7 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", checkUser, (req, res) => {
   let { username, password } = req.body;
 
   usersModel
@@ -52,6 +52,16 @@ function generateToken(user) {
   };
 
   return jwt.sign(payload, secrets.jwtSecret, options);
+}
+
+function checkUser(req, res, next) {
+  const userBody = req.body;
+
+  if(!userBody.username || !userBody.password){
+    res.status(401).json({ message: "Please provide username & password!" });
+  } else {
+    next();
+  }
 }
 
 module.exports = router;

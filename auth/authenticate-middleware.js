@@ -3,7 +3,7 @@
   before granting access to the next middleware/route handler
 */
 const jwt = require("jsonwebtoken");
-const secrets = require("../database/secrets.js");
+const secrets = require("../database/secret.js");
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
