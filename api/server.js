@@ -18,7 +18,7 @@ server.use('/api/jokes', authenticate, jokesRouter);
 server.use('/api/users', userRouter);
 
 server.get('/', (req, res) => {
-    res.status(200).json("Server is running");
+    res.status(200).json({ message: "Server is running" });
   });
 
 module.exports = server;

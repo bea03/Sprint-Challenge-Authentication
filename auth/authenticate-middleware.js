@@ -20,6 +20,6 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(401).json({ you: "shall not pass!" });
+    res.status(401).json({ you: "Not logged in" });
   }
 };
