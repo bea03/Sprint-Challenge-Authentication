@@ -16,5 +16,4 @@ router.get('/', (req, res) => {
       res.status(500).json({ message: 'Error Fetching Jokes', error: err });
     });
 });
-
 module.exports = router;
